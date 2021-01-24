@@ -1,17 +1,18 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PokeBall from "../pokeball.png";
+import { connect } from "react-redux";
 
-const Home = () => {
-  const [posts, setPosts] = useState("");
+const Home = (props) => {
+  console.log(props);
+  const posts = props.posts;
+  /* const [posts, setPosts] = useState("");
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts").then((response) => {
       console.log(response);
       setPosts(response.data.slice(0, 10));
     });
-  }, []);
+  }, []); */
 
   const postList = posts.length ? (
     posts.map((post) => {
@@ -39,4 +40,11 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    posts: state.posts,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
